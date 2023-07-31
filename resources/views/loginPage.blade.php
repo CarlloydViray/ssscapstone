@@ -39,6 +39,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h2 class="card-title">Login</h2>
+
                         <form action="login" method="post">
 
                             @csrf
