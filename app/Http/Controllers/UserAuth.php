@@ -19,11 +19,11 @@ class UserAuth extends Controller
         $username = $req->input('username');
         $password = $req->input('password');
 
-        $user = DB::table('users')->where('username', $username)->first();
+        $user = DB::table('users')->where('user_username', $username)->first();
 
         if ($user) {
-            if (Hash::check($password, $user->password)) {
-                if ($user->user_type === 'mis') {
+            if (Hash::check($password, $user->user_password)) {
+                if ($user->user_type === 'mis' || $user->user_type === 'admin') {
                     $req->session()->put('user_id', $user->user_id);
                     return redirect('misMainPage')->with('success', 'Log in successful');
                 } elseif ($user->user_type === 'chair') {
@@ -41,5 +41,18 @@ class UserAuth extends Controller
             // User record does not exist
             return redirect('/')->with('error', 'User does not exist');
         }
+    }
+
+
+
+
+    public function misUsersManagementRoute()
+    {
+        return redirect()->route('misUsersManagementResource.index');
+    }
+
+    public function misCRUDHistoryRoute()
+    {
+        return redirect()->route('misCRUDHistoryResource.index');
     }
 }

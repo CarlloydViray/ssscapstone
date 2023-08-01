@@ -35,14 +35,14 @@ class SignUp extends Controller
         $password = $request->input('password');
 
         DB::table('users')->insert([
-            'username' => $username,
-            'password' => Hash::make($password),
+            'user_username' => $username,
+            'user_password' => Hash::make($password),
             'user_type' => $usertype,
             'user_firstName' => $first_name,
             'user_lastName' => $last_name,
-            'sex' => $sex,
-            'birthday' => $userBirthday,
-            'address' => $address,
+            'user_sex' => $sex,
+            'user_birthday' => $userBirthday,
+            'user_address' => $address,
             'dept_code' => $dept_code,
         ]);
 

@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\misCRUDHistory;
+use App\Http\Controllers\misUserManagement;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserAuth;
 use Illuminate\Support\Facades\DB;
@@ -26,12 +28,6 @@ Route::view('debug', 'debug');
 Route::view('chairMainPage', 'chair.chairMainPage');
 Route::view('misMainPage', 'mis.misMainPage');
 
-Route::get('/signup', function () {
-
-    $departments = DB::table('departments')->get(); // Fetch all departments from the database
-
-    return view('signupPage', ['departments' => $departments]);
-});
 
 Route::post('signup', [SignUp::class, 'createAcc']);
 
@@ -56,3 +52,19 @@ Route::get('/logout', function () {
     }
     return redirect('/')->with('success', 'Log out successful');
 });
+
+
+//mis user mgmnt
+
+route::resource('misUsersManagementResource', misUserManagement::class);
+Route::post('misUsersManagement', [UserAuth::class, 'misUsersManagementRoute']);
+
+Route::get('edit/users/{id}', [misUserManagement::class, 'edit']);
+Route::post('edit/users/{id}', [misUserManagement::class, 'update']);
+Route::get('delete/users/{id}', [misUserManagement::class, 'destroy']);
+
+
+//mis crud history
+
+route::resource('misCRUDHistoryResource', misCRUDHistory::class);
+Route::post('misCRUDHistory', [UserAuth::class, 'misCRUDHistoryRoute']);
