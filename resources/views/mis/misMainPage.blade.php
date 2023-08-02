@@ -85,18 +85,27 @@ if (session('user_id') == null) {
                     <button type="submit">Users Management</button>
                 </form>
             </li><br>
+
+            <li>
+                <form action="misCurriculumManagement" method="post">
+                    @csrf
+                    <button type="submit">Curriculums Management</button>
+                </form>
+            </li><br>
+
+            <li>
+                <form action="misSubjectManagement" method="post">
+                    @csrf
+                    <button type="submit">Subjects Management</button>
+                </form>
+            </li><br>
+
             <li>
                 <form action="misCRUDHistory" method="post">
                     @csrf
                     <button type="submit">CRUD History</button>
                 </form>
 
-            </li><br>
-            <li>
-                <form action="sellerOrdersDirect" method="post">
-                    @csrf
-                    <button type="submit">Order Listing</button>
-                </form>
             </li><br>
             <li>
                 <a href="/logout"><button>Logout</button></a>

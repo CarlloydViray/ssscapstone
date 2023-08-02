@@ -32,7 +32,7 @@ return new class extends Migration
 
         $hashedPassword = Hash::make('admin123');
 
-        DB::table('users')->insert([
+        $lastInsertedId = DB::table('users')->insert([
             [
                 'dept_code' => 'ADMIN',
                 'user_username' => 'admin',
@@ -43,6 +43,8 @@ return new class extends Migration
                 'user_sex' => 'Male',
                 'user_birthday' => '1990-01-01',
                 'user_address' => '123 Main Street',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
         ]);
     }

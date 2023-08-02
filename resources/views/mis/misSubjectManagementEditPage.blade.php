@@ -74,63 +74,53 @@ if (session('user_id') == null) {
         });
     </script>
 
-    <title>MIS History</title>
+    <title>MIS Subject Management Edit</title>
 </head>
 
 <body>
-    <div class="container-fluid">
+    <div class="container">
         <div class="row">
             <div class="col text-center mt-5">
-                <h1>History</h1>
-                <a href="/misMainPage" class="btn btn-secondary">Go back to Home Page</a>
+                <h1>Edit Subject</h1>
             </div>
         </div>
-        <br>
-        <div class="row mt-5">
-            <div class="col">
-                <table id="users" class="table table-striped" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>User ID</th>
-                            <th>User First Name</th>
-                            <th>User Last Name</th>
-                            <th>User Department</th>
-                            <th>User Type</th>
-                            <th>Action Made</th>
-                            <th>Timestamp</th>
-                        </tr>
-                    </thead>
-                    @foreach ($histories as $history)
-                        <tr>
-                            <td>{{ $history->id }}</td>
-                            <td>{{ $history->user_id }}</td>
-                            <td>{{ $history->user_firstName }}</td>
-                            <td>{{ $history->user_lastName }}</td>
-                            <td>{{ $history->department }}</td>
-                            <td>{{ $history->user_type }}</td>
-                            <td>{{ $history->action }}</td>
-                            <td>{{ $history->created_at }}</td>
-                        </tr>
-                    @endforeach
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <th>ID</th>
-                            <th>User ID</th>
-                            <th>User First Name</th>
-                            <th>User Last Name</th>
-                            <th>User Department</th>
-                            <th>User Type</th>
-                            <th>Action Made</th>
-                            <th>Timestamp</th>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
-        </div>
+
+        @foreach ($subjects as $subject)
+            <form action="{{ $subject->subject_code }}" method="POST" enctype="multipart/form-data">
+                @csrf
+
+                <div class="mb-3">
+                    <label for="subjectCode" class="form-label">Subject Code</label>
+                    <input type="text" name="subject_code" id="subjectCode" class="form-control"
+                        placeholder="Input Subject Code" value="{{ $subject->subject_code }}">
+                    @error('subject_code')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="mb-3">
+                    <label for="subjectDesc" class="form-label">Subject Description</label>
+                    <input type="text" name="subject_desc" id="subjectDesc" class="form-control"
+                        placeholder="Input Subject Description" value="{{ $subject->subject_desc }}">
+                    @error('subject_desc')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="mb-3">
+                    <label for="subjectUnits" class="form-label">Subject Units</label>
+                    <input type="number" name="subject_units" id="subjectUnits" class="form-control"
+                        placeholder="Input Subject Units" value="{{ $subject->subject_units }}">
+                    @error('subject_units')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div class="mb-3">
+                    <input type="submit" class="btn btn-success btn-block" value="Update"><br><br>
+                    <a href="/misSubjectManagementResource" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        @endforeach
     </div>
-    <br><br>
 </body>
 
 </html>

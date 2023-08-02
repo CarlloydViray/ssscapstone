@@ -251,6 +251,8 @@ if (session('user_id') == null) {
                             <th>Username</th>
                             <th>Password</th>
                             <th>Type</th>
+                            <th>Created At</th>
+                            <th>Updated At</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -266,6 +268,8 @@ if (session('user_id') == null) {
                             <td>{{ $user->user_username }}</td>
                             <td>{{ $user->user_password }}</td>
                             <td>{{ $user->user_type }}</td>
+                            <td>{{ $user->created_at }}</td>
+                            <td>{{ $user->updated_at }}</td>
                             <td>
                                 <form action="{{ route('misUsersManagementResource.destroy', $user->user_id) }}"
                                     method="post">
@@ -289,6 +293,8 @@ if (session('user_id') == null) {
                             <th>Username</th>
                             <th>Password</th>
                             <th>Type</th>
+                            <th>Created At</th>
+                            <th>Updated At</th>
                             <th>Actions</th>
                         </tr>
                     </tfoot>

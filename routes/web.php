@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\misCRUDHistory;
+use App\Http\Controllers\misCurriculumManagement;
+use App\Http\Controllers\misSubjectManagement;
 use App\Http\Controllers\misUserManagement;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserAuth;
@@ -68,3 +70,22 @@ Route::get('delete/users/{id}', [misUserManagement::class, 'destroy']);
 
 route::resource('misCRUDHistoryResource', misCRUDHistory::class);
 Route::post('misCRUDHistory', [UserAuth::class, 'misCRUDHistoryRoute']);
+
+
+//mis curriculum mgmnt
+
+route::resource('misCurriculumManagementResource', misCurriculumManagement::class);
+Route::post('misCurriculumManagement', [UserAuth::class, 'misCurriculumManagementRoute']);
+
+Route::get('edit/curriculum/{id}', [misCurriculumManagement::class, 'edit']);
+Route::post('edit/curriculum/{id}', [misCurriculumManagement::class, 'update']);
+Route::get('delete/curriculum/{id}', [misCurriculumManagement::class, 'destroy']);
+
+//mis subjects mgmnt
+
+route::resource('misSubjectManagementResource', misSubjectManagement::class);
+Route::post('misSubjectManagement', [UserAuth::class, 'misSubjectManagementRoute']);
+
+Route::get('edit/subject/{id}', [misSubjectManagement::class, 'edit']);
+Route::post('edit/subject/{id}', [misSubjectManagement::class, 'update']);
+Route::get('delete/subject/{id}', [misSubjectManagement::class, 'destroy']);
