@@ -3,8 +3,6 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\DB;
-
 
 return new class extends Migration
 {
@@ -13,15 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('departments', function (Blueprint $table) {
-            $table->string('dept_code', 20)->primary();
-            $table->string('dept_desc');
+        Schema::create('rooms', function (Blueprint $table) {
+            $table->string('room_code', 20)->unique();
+            $table->string('room_desc');
+            $table->integer('room_capacity');
+            $table->string('room_location');
             $table->timestamps();
         });
-
-        DB::table('departments')->insert([
-            ['dept_code' => 'ADMIN', 'dept_desc' => 'ADMIN'],
-        ]);
     }
 
     /**
@@ -29,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('departments');
+        Schema::dropIfExists('rooms');
     }
 };

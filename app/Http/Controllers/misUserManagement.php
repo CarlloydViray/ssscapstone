@@ -16,7 +16,10 @@ class misUserManagement extends Controller
         $users = DB::table('users')
             ->select('users.*', 'departments.dept_desc')
             ->join('departments', 'users.dept_code', '=', 'departments.dept_code')
+            ->where('users.user_type', 'mis')
+            ->orWhere('users.user_type', 'chair')
             ->get();
+
 
         $departments = DB::table('departments')->get();
 
@@ -179,8 +182,6 @@ class misUserManagement extends Controller
      */
     public function destroy(string $id)
     {
-
-
         $userDel = DB::table('users')->where('user_id', $id)->first();
         $userDel_username = $userDel->user_username;
         $userDel_firstName = $userDel->user_firstName;

@@ -5,16 +5,18 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class misSubjectManagement extends Controller
+class misDepartmentManagement extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $subject = DB::table('subjects')->get();
+        $departments = DB::table('departments')
+            ->where('dept_desc', '!=', 'ADMIN')
+            ->get();
 
-        return view('mis.misSubjectManagementPage', ['subjects' => $subject]);
+        return view('mis.misDepartmentManagementPage', ['departments' => $departments]);
     }
 
     /**
@@ -30,30 +32,28 @@ class misSubjectManagement extends Controller
      */
     public function store(Request $request)
     {
-
         $this->validate($request, [
-            'subject_code' => 'required|max:20',
-            'subject_desc' => 'required',
-            'subject_units' => 'required',
+            'dept_code' => 'required|max:20',
+            'dept_desc' => 'required',
         ]);
 
 
-        $subjectCode = $request->input('subject_code');
+        $dept_code = $request->input('dept_code');
 
-        $existingSubject = DB::table('subjects')
-            ->where('subject_code', $subjectCode)
+        $existingDepartment = DB::table('departments')
+            ->where('dept_code', $dept_code)
             ->first();
 
-        if ($existingSubject) {
-            return redirect()->route('misSubjectManagementResource.index')->with('warning', 'Subject Code Already Exists');
+        if ($existingDepartment) {
+            return redirect()->route('misDepartmentManagementResource.index')->with('warning', 'Department Code Already Exists');
         } else {
-            $subjectDesc = $request->input('subject_desc');
-            $subjectUnits = $request->input('subject_units');
 
-            DB::table('subjects')->insert([
-                'subject_code' => $subjectCode,
-                'subject_desc' => $subjectDesc,
-                'subject_units' => $subjectUnits,
+            $dept_desc = $request->input('dept_desc');
+
+
+            DB::table('departments')->insert([
+                'dept_code' => $dept_code,
+                'dept_desc' => $dept_desc,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
@@ -68,12 +68,12 @@ class misSubjectManagement extends Controller
                 'user_lastName' => $user->user_lastName,
                 'department' => $departmentdesc,
                 'user_type' => $user->user_type,
-                'action' => 'INSERTED Subject: ' . $subjectDesc,
+                'action' => 'INSERTED Department: ' . $dept_desc,
 
             ]);
         }
 
-        return redirect()->route('misSubjectManagementResource.index')->with('success', 'Subject Added Successfully');
+        return redirect()->route('misDepartmentManagementResource.index')->with('success', 'Department Added Successfully');
     }
 
     /**
@@ -89,12 +89,11 @@ class misSubjectManagement extends Controller
      */
     public function edit(string $id)
     {
-        $subject = DB::table('subjects')
-            ->where('subject_code', $id)
+        $departments = DB::table('departments')
+            ->where('dept_code', $id)
             ->get();
 
-
-        return view('mis.misSubjectManagementEditPage', ['subjects' => $subject]);
+        return view('mis.misDepartmentManagementEditPage', ['departments' => $departments]);
     }
 
     /**
@@ -102,21 +101,18 @@ class misSubjectManagement extends Controller
      */
     public function update(Request $request, string $id)
     {
-
         $this->validate($request, [
-            'subject_code' => 'required|max:20',
-            'subject_desc' => 'required',
-            'subject_units' => 'required',
+            'dept_code' => 'required|max:20',
+            'dept_desc' => 'required',
         ]);
 
-        $subjectCode = $request->input('subject_code');
-        $subjectDesc = $request->input('subject_desc');
-        $subjectUnits = $request->input('subject_units');
+        $dept_code = $request->input('dept_code');
+        $dept_desc = $request->input('dept_desc');
 
-        DB::table('subjects')->where('subject_code', $id)->update([
-            'subject_code' => $subjectCode,
-            'subject_desc' => $subjectDesc,
-            'subject_units' => $subjectUnits,
+
+        DB::table('departments')->where('dept_code', $id)->update([
+            'dept_code' => $dept_code,
+            'dept_desc' => $dept_desc,
             'updated_at' => now(),
         ]);
 
@@ -130,11 +126,11 @@ class misSubjectManagement extends Controller
             'user_lastName' => $user->user_lastName,
             'department' => $departmentdesc,
             'user_type' => $user->user_type,
-            'action' => 'UPDATED Subject: ' . $subjectDesc,
+            'action' => 'UPDATED Department: ' . $dept_desc,
 
         ]);
 
-        return redirect()->route('misSubjectManagementResource.index')->with('success', 'Curriculum Updated Successfully');
+        return redirect()->route('misDepartmentManagementResource.index')->with('success', 'Department Updated Successfully');
     }
 
     /**
@@ -142,8 +138,9 @@ class misSubjectManagement extends Controller
      */
     public function destroy(string $id)
     {
-        $subjectDel = DB::table('subjects')->where('subject_code', $id)->first();
-        $subjectDel_desc = $subjectDel->subject_code;
+        $departmentDel = DB::table('departments')->where('dept_code', $id)->first();
+        $departmentDel_desc = $departmentDel->dept_desc;
+
         $user_id = session('user_id');
         $user = DB::table('users')->where('user_id', $user_id)->first();
         $departmentdesc = DB::table('departments')->where('dept_code', $user->dept_code)->value('dept_desc');
@@ -154,11 +151,11 @@ class misSubjectManagement extends Controller
             'user_lastName' => $user->user_lastName,
             'department' => $departmentdesc,
             'user_type' => $user->user_type,
-            'action' => 'DELETED subject: ' . $subjectDel_desc,
+            'action' => 'DELETED Room: ' . $departmentDel_desc,
         ]);
 
-        DB::delete('DELETE FROM subjects WHERE subject_code = ?', [$id]);
+        DB::delete('DELETE FROM departments WHERE dept_code = ?', [$id]);
 
-        return redirect()->route('misSubjectManagementResource.index')->with('success', 'Subject Deleted Successfully');
+        return redirect()->route('misDepartmentManagementResource.index')->with('success', 'Department Deleted Successfully');
     }
 }

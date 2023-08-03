@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\misCRUDHistory;
 use App\Http\Controllers\misCurriculumManagement;
+use App\Http\Controllers\misDepartmentManagement;
+use App\Http\Controllers\misRoomManagement;
+use App\Http\Controllers\misSectionManagement;
 use App\Http\Controllers\misSubjectManagement;
 use App\Http\Controllers\misUserManagement;
 use Illuminate\Support\Facades\Route;
@@ -89,3 +92,30 @@ Route::post('misSubjectManagement', [UserAuth::class, 'misSubjectManagementRoute
 Route::get('edit/subject/{id}', [misSubjectManagement::class, 'edit']);
 Route::post('edit/subject/{id}', [misSubjectManagement::class, 'update']);
 Route::get('delete/subject/{id}', [misSubjectManagement::class, 'destroy']);
+
+//mis rooms mgmnt
+
+route::resource('misRoomManagementResource', misRoomManagement::class);
+Route::post('misRoomManagement', [UserAuth::class, 'misRoomManagementRoute']);
+
+Route::get('edit/room/{id}', [misRoomManagement::class, 'edit']);
+Route::post('edit/room/{id}', [misRoomManagement::class, 'update']);
+Route::get('delete/room/{id}', [misRoomManagement::class, 'destroy']);
+
+//mis departments mgmnt
+
+route::resource('misDepartmentManagementResource', misDepartmentManagement::class);
+Route::post('misDepartmentManagement', [UserAuth::class, 'misDepartmentManagementRoute']);
+
+Route::get('edit/department/{id}', [misDepartmentManagement::class, 'edit']);
+Route::post('edit/department/{id}', [misDepartmentManagement::class, 'update']);
+Route::get('delete/department/{id}', [misDepartmentManagement::class, 'destroy']);
+
+//mis sections mgmnt
+
+route::resource('misSectionManagementResource', misSectionManagement::class);
+Route::post('misSectionManagement', [UserAuth::class, 'misSectionManagementRoute']);
+
+Route::get('edit/section/{id}', [misSectionManagement::class, 'edit']);
+Route::post('edit/section/{id}', [misSectionManagement::class, 'update']);
+Route::get('delete/section/{id}', [misSectionManagement::class, 'destroy']);
