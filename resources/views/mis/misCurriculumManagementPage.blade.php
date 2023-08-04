@@ -119,6 +119,22 @@ if (session('user_id') == null) {
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
+                        <div class="mb-3">
+                            <label for="department" class="form-label">Department</label>
+                            <select name="department" id="department" class="form-control">
+                                <option value="">Select Department</option>
+                                @foreach ($departments as $department)
+                                    <option value="{{ $department->dept_code }}"
+                                        @if (old('department') == $department->dept_code) selected @endif>
+                                        {{ $department->dept_desc }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('department')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -148,6 +164,7 @@ if (session('user_id') == null) {
                         <tr>
                             <th>Curriculum ID</th>
                             <th>Curriculum Description</th>
+                            <th>Department Description</th>
                             <th>Created At</th>
                             <th>Updated At</th>
                             <th>Actions</th>
@@ -157,6 +174,7 @@ if (session('user_id') == null) {
                         <tr>
                             <td>{{ $curriculum->curriculum_id }}</td>
                             <td>{{ $curriculum->curriculum_desc }}</td>
+                            <td>{{ $curriculum->dept_desc }}</td>
                             <td>{{ $curriculum->created_at }}</td>
                             <td>{{ $curriculum->updated_at }}</td>
                             <td>
@@ -177,6 +195,7 @@ if (session('user_id') == null) {
                         <tr>
                             <th>Curriculum ID</th>
                             <th>Curriculum Description</th>
+                            <th>Department Description</th>
                             <th>Created At</th>
                             <th>Updated At</th>
                             <th>Actions</th>

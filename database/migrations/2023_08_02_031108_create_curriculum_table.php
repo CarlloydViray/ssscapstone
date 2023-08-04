@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('curriculum', function (Blueprint $table) {
             $table->id('curriculum_id');
             $table->string('curriculum_desc');
+            $table->string('dept_code', 20);
+            $table->foreign('dept_code')->references('dept_code')->on('departments');
             $table->timestamps();
         });
     }

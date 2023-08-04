@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('sections', function (Blueprint $table) {
             $table->id('section_id');
+            $table->string('section_desc', 20);
             $table->string('dept_code', 20);
             $table->foreign('dept_code')->references('dept_code')->on('departments');
             $table->string('section_academicYear');

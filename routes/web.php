@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\misCRUDHistory;
+use App\Http\Controllers\misCurricularSubjectsManagement;
 use App\Http\Controllers\misCurriculumManagement;
 use App\Http\Controllers\misDepartmentManagement;
 use App\Http\Controllers\misRoomManagement;
@@ -119,3 +120,12 @@ Route::post('misSectionManagement', [UserAuth::class, 'misSectionManagementRoute
 Route::get('edit/section/{id}', [misSectionManagement::class, 'edit']);
 Route::post('edit/section/{id}', [misSectionManagement::class, 'update']);
 Route::get('delete/section/{id}', [misSectionManagement::class, 'destroy']);
+
+//mis curricular subjects mgmnt
+
+route::resource('misCSubjectsManagementResource', misCurricularSubjectsManagement::class);
+Route::post('misCurricularSubjectsManagement', [UserAuth::class, 'misCurricularSubjectsManagementRoute']);
+
+Route::get('edit/cs/{id}', [misCurricularSubjectsManagement::class, 'edit']);
+Route::post('edit/cs/{id}', [misCurricularSubjectsManagement::class, 'update']);
+Route::get('delete/cs/{id}', [misCurricularSubjectsManagement::class, 'destroy']);

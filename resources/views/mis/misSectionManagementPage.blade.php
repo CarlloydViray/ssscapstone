@@ -111,7 +111,6 @@ if (session('user_id') == null) {
                     <form action="{{ route('misSectionManagementResource.store') }}" method="POST"
                         enctype="multipart/form-data">
                         @csrf
-
                         <div class="mb-3">
                             <label for="sectionDesc" class="form-label">Section Description</label>
                             <input type="text" name="section_desc" id="sectionDesc" class="form-control"
@@ -140,48 +139,81 @@ if (session('user_id') == null) {
 
                         <div class="mb-3">
                             <label for="sectionAcademicYear" class="form-label">Section Academic Year</label>
-                            <input type="text" name="section_academicYear" id="sectionAcademicYear"
-                                class="form-control" placeholder="Input Academic Year (e.g., 2022-2023)"
-                                pattern="\d{4}-\d{4}" value="{{ old('section_academicYear') }}">
-                            <small class="form-text text-muted">Please enter the academic year in the format "YYYY-YYYY"
-                                (e.g., 2022-2023).</small>
+                            <select name="section_academicYear" id="sectionAcademicYear" class="form-control">
+                                @php
+                                    $currentYear = now()->year;
+                                    $selectedYear = old('section_academicYear') !== null ? (int) old('section_academicYear') : $currentYear;
+                                    $futureYears = max(1, $selectedYear - $currentYear + 1); // Calculate the number of future years based on the selected or current year
+                                @endphp
+                                @for ($year = $currentYear; $year <= $currentYear + $futureYears; $year++)
+                                    @php
+                                        $nextYear = $year + 1;
+                                        $academicYear = "$year-$nextYear";
+                                    @endphp
+                                    <option value="{{ $academicYear }}"
+                                        @if ($selectedYear == $year) selected @endif>
+                                        {{ $academicYear }}</option>
+                                @endfor
+                            </select>
+
+                            <small class="form-text text-muted">Please select the academic year from the list.</small>
                             @error('section_academicYear')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
 
-
                         <div class="mb-3">
                             <label for="sectionYearLevel" class="form-label">Section Year Level</label>
                             <select name="section_yearLevel" id="sectionYearLevel" class="form-control">
-                                <option value="1"{{ old('section_yearLevel') == '1' ? ' selected' : '' }}>1
+                                <option value="1"{{ old('section_yearLevel') == '1' ? ' selected' : '' }}>1st Year
                                 </option>
-                                <option value="2"{{ old('section_yearLevel') == '2' ? ' selected' : '' }}>2
+                                <option value="2"{{ old('section_yearLevel') == '2' ? ' selected' : '' }}>2nd Year
                                 </option>
-                                <option value="3"{{ old('section_yearLevel') == '3' ? ' selected' : '' }}>3
+                                <option value="3"{{ old('section_yearLevel') == '3' ? ' selected' : '' }}>3rd Year
                                 </option>
-                                <option value="4"{{ old('section_yearLevel') == '4' ? ' selected' : '' }}>4
+                                <option value="4"{{ old('section_yearLevel') == '4' ? ' selected' : '' }}>4th Year
                                 </option>
-                                <option value="5"{{ old('section_yearLevel') == '5' ? ' selected' : '' }}>5
+                                <option value="5"{{ old('section_yearLevel') == '5' ? ' selected' : '' }}>5th Year
                                 </option>
-                                <option value="6"{{ old('section_yearLevel') == '6' ? ' selected' : '' }}>6
+                                <option value="6"{{ old('section_yearLevel') == '6' ? ' selected' : '' }}>6th Year
                                 </option>
                             </select>
+                            <small class="form-text text-muted">Please select the year level from the list.</small>
                             @error('section_yearLevel')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
 
                         <div class="mb-3">
-                            <label for="sectionDesc" class="form-label">Section Semester</label>
-                            <input type="text" name="section_desc" id="sectionDesc" class="form-control"
-                                placeholder="Input Section Description" value="{{ old('section_desc') }}">
-                            @error('section_desc')
+                            <label class="form-label">Section Semester</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="section_semester"
+                                    id="semester1" value="1st semester"
+                                    {{ old('section_semester') === '1st semester' ? 'checked' : '' }}>
+                                <label class="form-check-label" for="semester1">
+                                    1st semester
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="section_semester"
+                                    id="semester2" value="2nd semester"
+                                    {{ old('section_semester') === '2nd semester' ? 'checked' : '' }}>
+                                <label class="form-check-label" for="semester2">
+                                    2nd semester
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="section_semester"
+                                    id="summer" value="summer"
+                                    {{ old('section_semester') === 'summer' ? 'checked' : '' }}>
+                                <label class="form-check-label" for="summer">
+                                    Summer
+                                </label>
+                            </div>
+                            @error('section_semester')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
-
-
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -232,7 +264,7 @@ if (session('user_id') == null) {
                             <td>{{ $section->updated_at }}</td>
                             <td>
                                 <form
-                                    action="{{ route('misSubjectManagementResource.destroy', $section->section_id) }}"
+                                    action="{{ route('misSectionManagementResource.destroy', $section->section_id) }}"
                                     method="post">
                                     <a class="btn btn-warning"
                                         href="/edit/section/{{ $section->section_id }}">Edit</a>

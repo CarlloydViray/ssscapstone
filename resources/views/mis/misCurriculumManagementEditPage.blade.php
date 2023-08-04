@@ -81,7 +81,7 @@ if (session('user_id') == null) {
     <div class="container">
         <div class="row">
             <div class="col text-center mt-5">
-                <h1>Edit User</h1>
+                <h1>Edit Curriculum</h1>
             </div>
         </div>
 
@@ -98,6 +98,23 @@ if (session('user_id') == null) {
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
+
+                <div class="mb-3">
+                    <label for="department" class="form-label">Department</label>
+                    <select name="department" id="department" class="form-control">
+                        <option value="">Select Department</option>
+                        @foreach ($departments as $department)
+                            <option value="{{ $department->dept_code }}"
+                                @if ($department->dept_code == old('department', $curriculum->dept_code)) selected @endif>
+                                {{ $department->dept_desc }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('department')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+
 
                 <div class="mb-3">
                     <input type="submit" class="btn btn-success btn-block" value="Update"><br><br>

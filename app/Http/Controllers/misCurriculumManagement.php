@@ -12,10 +12,15 @@ class misCurriculumManagement extends Controller
      */
     public function index()
     {
-        $curriculum = DB::table('curriculum')->get();
+        $curriculum = DB::table('curriculum')
+            ->join('departments', 'curriculum.dept_code', '=', 'departments.dept_code')
+            ->get();
 
+        $departments = DB::table('departments')
+            ->where('dept_code', '<>', 'ADMIN')
+            ->get();
 
-        return view('mis.misCurriculumManagementPage', ['curriculums' => $curriculum]);
+        return view('mis.misCurriculumManagementPage', ['curriculums' => $curriculum, 'departments' => $departments]);
     }
 
     /**
@@ -36,9 +41,11 @@ class misCurriculumManagement extends Controller
         ]);
 
         $curriculum = $request->input('curriculum');
+        $department = $request->input('department');
 
         DB::table('curriculum')->insert([
             'curriculum_desc' => $curriculum,
+            'dept_code' => $department,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
@@ -77,8 +84,10 @@ class misCurriculumManagement extends Controller
             ->where('curriculum_id', $id)
             ->get();
 
+        $departments = DB::table('departments')->get();
 
-        return view('mis.misCurriculumManagementEditPage', ['curriculums' => $curriculum]);
+
+        return view('mis.misCurriculumManagementEditPage', ['curriculums' => $curriculum, 'departments' => $departments]);
     }
 
     /**
@@ -91,9 +100,11 @@ class misCurriculumManagement extends Controller
         ]);
 
         $curriculum = $request->input('curriculum');
+        $department = $request->input('department');
 
         DB::table('curriculum')->where('curriculum_id', $id)->update([
             'curriculum_desc' => $curriculum,
+            'dept_code' => $department,
             'updated_at' => now(),
         ]);
 

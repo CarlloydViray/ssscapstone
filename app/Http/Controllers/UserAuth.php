@@ -80,4 +80,9 @@ class UserAuth extends Controller
     {
         return redirect()->route('misSectionManagementResource.index');
     }
+
+    public function misCurricularSubjectsManagementRoute()
+    {
+        return redirect()->route('misCSubjectsManagementResource.index');
+    }
 }

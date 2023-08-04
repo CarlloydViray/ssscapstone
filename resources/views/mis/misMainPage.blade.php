@@ -108,6 +108,13 @@ if (session('user_id') == null) {
             </li><br>
 
             <li>
+                <form action="misCurricularSubjectsManagement" method="post">
+                    @csrf
+                    <button type="submit">Curricular Subjects Management</button>
+                </form>
+            </li><br>
+
+            <li>
                 <form action="misRoomManagement" method="post">
                     @csrf
                     <button type="submit">Rooms Management</button>
@@ -117,7 +124,7 @@ if (session('user_id') == null) {
             <li>
                 <form action="misSectionManagement" method="post">
                     @csrf
-                    <button type="submit">Sections/Blocks Management</button>
+                    <button type="submit">Sections Management</button>
                 </form>
             </li><br>
 
