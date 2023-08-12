@@ -94,6 +94,13 @@ if (session('user_id') == null) {
             </li><br>
 
             <li>
+                <form action="misFacultyManagement" method="post">
+                    @csrf
+                    <button type="submit">Faculty Management</button>
+                </form>
+            </li><br>
+
+            <li>
                 <form action="misCurriculumManagement" method="post">
                     @csrf
                     <button type="submit">Curriculums Management</button>

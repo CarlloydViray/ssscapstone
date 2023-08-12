@@ -113,7 +113,9 @@ class misUserManagement extends Controller
             ->where('users.user_id', $id)
             ->get();
 
-        $departments = DB::table('departments')->get();
+        $departments = DB::table('departments')
+            ->where('dept_desc', '!=', 'ADMIN')
+            ->get();
 
         return view('mis.misUsersManagementEditPage', ['users' => $users, 'departments' => $departments]);
     }
