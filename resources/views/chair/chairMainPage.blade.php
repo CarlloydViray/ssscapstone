@@ -64,6 +64,12 @@ if (session('user_id') == null) {
             CHAIR MAIN PAGE
         </h1>
         <br>
+
+        <p>User ID: {{ session('user_id') }}</p>
+        <p>Name: {{ session('user_firstName') . ' ' . session('user_lastName') }}</p>
+        <p>Department: {{ session('dept_desc') }}</p>
+
+
         <li>
             <a href="/logout"><button>Logout</button></a>
         </li>

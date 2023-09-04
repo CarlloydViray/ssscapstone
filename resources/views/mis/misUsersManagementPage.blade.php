@@ -252,7 +252,6 @@ if (session('user_id') == null) {
                             <th>Birthday</th>
                             <th>Sex</th>
                             <th>Username</th>
-                            <th>Password</th>
                             <th>Type</th>
                             <th>Created At</th>
                             <th>Updated At</th>
@@ -269,7 +268,6 @@ if (session('user_id') == null) {
                             <td>{{ $user->user_birthday }}</td>
                             <td>{{ $user->user_sex }}</td>
                             <td>{{ $user->user_username }}</td>
-                            <td>{{ $user->user_password }}</td>
                             <td>{{ $user->user_type }}</td>
                             <td>{{ $user->created_at }}</td>
                             <td>{{ $user->updated_at }}</td>
@@ -294,7 +292,6 @@ if (session('user_id') == null) {
                             <th>Birthday</th>
                             <th>Sex</th>
                             <th>Username</th>
-                            <th>Password</th>
                             <th>Type</th>
                             <th>Created At</th>
                             <th>Updated At</th>

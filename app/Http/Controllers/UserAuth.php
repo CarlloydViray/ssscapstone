@@ -28,6 +28,14 @@ class UserAuth extends Controller
                     return redirect('misMainPage')->with('success', 'Log in successful');
                 } elseif ($user->user_type === 'chair') {
                     $req->session()->put('user_id', $user->user_id);
+                    $req->session()->put('user_firstName', $user->user_firstName);
+                    $req->session()->put('user_lastName', $user->user_lastName);
+                    $req->session()->put('dept_code', $user->dept_code);
+
+                    $department = DB::table('departments')->where('dept_code', $user->dept_code)->first();
+
+                    $req->session()->put('dept_desc', $department->dept_desc);
+
                     return redirect('chairMainPage')->with('success', 'Log in successful');
                 } else {
                     // Role not specified or invalid
