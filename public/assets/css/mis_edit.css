@@ -1,0 +1,243 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body.html {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background-color: white;
+  }
+
+  body {
+    overflow-y: auto;
+    overflow-x: hidden; /* optional: hide horizontal scrollbar */
+  }
+
+  footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 1;
+    background-color: #082b54;
+    color: #F3D370;
+    text-align: center;
+  }
+  
+  .active footer{
+    background-color: #2D3436;
+    color:white;
+  }
+
+  .title{
+    color:  #F3D370;
+  }
+  .user-name {
+    margin-left: 40px;
+  }
+
+
+    .link{
+    font-size:20px;
+    color: #F3D370;
+    background-color:#082b54;
+
+    }
+    .scrollable-form {
+    overflow-y: auto;
+    max-height: 95vh;
+    padding: 15px;
+    position: relative;
+    transition: margin-left 0.5s;
+    }
+
+    .edit-user-container {
+        background-color: #082b54;
+    }
+
+    .edit-user-title {
+        color: #F3D370;
+        padding: 20px;
+    }
+
+    .text {
+      color: #082b54;
+  }
+
+    .form-label {
+        color: #082b54;
+        font-weight: bold;
+        font-size: 15px;
+    }
+
+ 
+
+    .link{
+        text-decoration: none;
+    }
+
+    .content{
+        position: relative;
+        width:500px;
+        margin-top:170px;
+        z-index: 5;
+        
+    }
+
+     .darkmode {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    color: white;
+    background-color: #2D3436;
+    position: absolute;
+    right: 30px;
+    bottom: 80px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 24px;
+    z-index: 2;
+    transition: background-color 0.5s, color 0.5s;
+    }
+
+    .darkmode.active {
+    background-color: white;
+    color: #082b54;
+    transition: background-color 0.5s, color 0.5s;
+    }
+
+    .contains {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    right: 30px;
+    bottom: 20px;
+    width: 50px;
+    height: 50px;
+    }
+
+    .dark {
+    position: relative;
+    transform: scale(0);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 250vw;
+    height: 250vw;
+    border-radius: 50%;
+    background-color:  #2D3436;
+    transition: transform 0.5s, background-color 0.5s;
+    display: flex;
+    flex: 0 0 auto;
+    overflow: hidden;
+    }
+
+
+    .dark.active {
+    transform: scale(1);
+    overflow: hidden;
+    transition: transform 0.5s, background-color 0.5s;
+    }
+
+    .active .form-label {
+    color: white;
+    }
+
+    .active .content {
+    color: white;
+    }
+
+    .active .edit-user-container {
+    background-color:  #2D3436;
+    
+    }
+    .active .edit-user-title {
+    color: white;
+    }
+
+    .active .text {
+      color: white;
+      padding: 20px;
+  }
+
+    html {
+    overflow-x: hidden;
+    overflow-y: hidden;
+
+    }
+
+    .navbar {
+    background-color:#082b54;
+    }
+
+    .navbar-info{
+        width: 330px;
+      }
+
+    .active .navbar {
+    background-color: #2D3436;
+    }
+
+    .active .link{
+    background-color: #2D3436;
+    color: white;
+    text-decoration: none;
+
+    }
+    .active .form-check-input{
+
+        color: white;
+    }
+
+    .active .title{
+
+        color: white;
+    }
+
+
+  #users tbody tr:hover,
+  #users tbody tr:nth-child(odd):hover,
+  #users tbody tr:nth-child(even):hover {
+    background-color: #082b54;
+    transform: scale(1.02);
+    transition: background-color 0.3s, transform 0.1s;
+  }
+
+  #users tbody tr:hover td,
+  #users tbody tr:nth-child(odd):hover td,
+  #users tbody tr:nth-child(even):hover td {
+    color: #F3D370;
+  }
+
+  .activee #users tbody tr:hover,
+  .active #users tbody tr:nth-child(odd):hover,
+  .active #users tbody tr:nth-child(even):hover {
+    transform: scale(1.02);
+    transition: background-color 0.3s, transform 0.1s;
+    background-color:  #2D3436;
+  }
+
+  .active #users tbody tr td,
+  .active #users tbody tr:nth-child(odd) td,
+  .active #users tbody tr:nth-child(even) td {
+    color: white;
+  }
+
+  .active td {
+    color:   #2D3436;
+  }
+
+  .form-control{
+    height: 50px;
+  }
+
+ 
+  
+
+
